@@ -1,9 +1,10 @@
 package ru.geekbrains.lesson4;
 
-import java.util.Iterator;
+import java.security.Key;
+import java.util.*;
 
 public class HashMap<K, V> implements Iterable<HashMap.Entity> {
-
+    ArrayList  ArrayKey = new ArrayList<>();
     private static final int INIT_BUCKET_COUNT = 16;
     private static final double LOAD_FACTOR = 0.5;
     private int size;
@@ -15,6 +16,14 @@ public class HashMap<K, V> implements Iterable<HashMap.Entity> {
     public Iterator<HashMap.Entity> iterator() {
         return new HashMapIterator();
     }
+
+    public String[] keySet() {
+        String[] Keys = (String[]) ArrayKey.toArray(String[]::new); // массив со всеми ключа, в том числе дублированные ключи присутствуют
+        Set<String> temp = new LinkedHashSet<String>(Arrays.asList(Keys));  // сделал множество, оставив уникальные ключи
+        String[] UniqueKeys = temp.toArray(new String[temp.size()]); // множество преобразовывается в массив
+        return UniqueKeys; // возврат массива с уникальными значениями
+    }
+
 
     class HashMapIterator implements Iterator<HashMap.Entity>{
 
@@ -176,6 +185,7 @@ public class HashMap<K, V> implements Iterable<HashMap.Entity> {
 
         V buf = (V)bucket.add(entity);
         if (buf == null){
+            ArrayKey.add(key);
             size++;
         }
         return buf;
@@ -196,6 +206,7 @@ public class HashMap<K, V> implements Iterable<HashMap.Entity> {
             return null;
         V buf = (V)bucket.remove(key);
         if (buf != null){
+            ArrayKey.remove(key);
             size--;
         }
         return buf;
@@ -211,3 +222,4 @@ public class HashMap<K, V> implements Iterable<HashMap.Entity> {
 
 
 }
+

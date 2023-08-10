@@ -8,7 +8,7 @@ import java.util.List;
 public class Program {
 
     public static void main(String[] args) {
-        HashMap<String, String> hashMap1 = new HashMap<>(4);
+        HashMap<String, String> hashMap1 = new HashMap<>();
         String oldValue = hashMap1.put("+79001234567", "AAAAA");
         oldValue = hashMap1.put("+79001234560", "MMMMM");
         oldValue = hashMap1.put("+79001234560", "BBB");
@@ -28,24 +28,12 @@ public class Program {
 
         String res3 = hashMap1.remove("+79001234592");
         String res4 = hashMap1.remove("+79001234862");
-        String res5 =hashMap1.remove("+79001234862");
+        String res5 = hashMap1.remove("+79001234862");
 
-
-        for (HashMap.Entity e : hashMap1 ){
-            System.out.println(e.key + " " + e.value);
+        for (String key: hashMap1.keySet()){
+            String value = hashMap1.get(key);
+            System.out.println("Key: " + key + ", Value: " + value);
         }
-
-        ArrayList<Integer> arrayList = new ArrayList<>();
-        arrayList.add(12);
-        arrayList.add(13);
-        arrayList.add(14);
-        arrayList.add(15);
-
-        for (int e: arrayList) {
-            System.out.println(e);
-        }
-
-
     }
 
 }
